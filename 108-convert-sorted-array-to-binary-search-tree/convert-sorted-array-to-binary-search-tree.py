@@ -5,9 +5,7 @@ class Solution:
             if left > right:
                 return None
 
-            mid = left
-            for _ in range((right - left) // 2):
-                mid += 1
+            mid = (left + right) // 2
 
             root = TreeNode(nums[mid])
             root.left = build(left, mid - 1)
