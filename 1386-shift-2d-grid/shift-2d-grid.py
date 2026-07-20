@@ -1,12 +1,7 @@
 class Solution:
     def shiftGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:
         m, n = len(grid), len(grid[0])
-        k %= m * n
-        ans = [[0] * n for _ in range(m)]
-
-        for i in range(m):
-            for j in range(n):
-                idx = (i * n + j + k) % (m * n)
-                ans[idx // n][idx % n] = grid[i][j]
-
-        return ans
+        a = sum(grid, [])
+        k %= len(a)
+        a = a[-k:] + a[:-k]
+        return [a[i:i+n] for i in range(0, len(a), n)]
