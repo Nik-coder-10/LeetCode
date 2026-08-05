@@ -1,21 +1,22 @@
 class Solution:
     def remainingMethods(self, n: int, k: int, invocations: List[List[int]]) -> List[int]:
         graph = [[] for _ in range(n)]
+
         for u, v in invocations:
             graph[u].append(v)
 
-        suspicious = set()
+        suspicious = [False] * n
 
         def dfs(u):
-            suspicious.add(u)
+            suspicious[u] = True
             for v in graph[u]:
-                if v not in suspicious:
+                if not suspicious[v]:
                     dfs(v)
 
         dfs(k)
 
         for u, v in invocations:
-            if u not in suspicious and v in suspicious:
+            if not suspicious[u] and suspicious[v]:
                 return list(range(n))
 
-        return [i for i in range(n) if i not in suspicious]
+        return [i for i in range(n) if not suspicious[i]]
