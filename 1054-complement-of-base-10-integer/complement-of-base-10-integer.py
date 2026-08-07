@@ -3,13 +3,8 @@ class Solution:
         if n == 0:
             return 1
 
-        b = bin(n)[2:]
-        ans = ""
+        mask = 1
+        while mask <= n:
+            mask <<= 1
 
-        for c in b:
-            if c == '0':
-                ans += '1'
-            else:
-                ans += '0'
-
-        return int(ans, 2)
+        return (mask - 1) ^ n
